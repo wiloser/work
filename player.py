@@ -1,6 +1,6 @@
 import pygame
 
-from playStatusConfig import Strings
+from playStatusConfig import *
 from settings import *
 from support import *
 
@@ -40,22 +40,29 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
             self.direction.y = -1
-            self.status = Strings.up
+            self.status = Status.up
         elif keys[pygame.K_DOWN]:
             self.direction.y = 1
-            self.status = Strings.down
+            self.status = Status.down
         else:
             self.direction.y = 0
 
         if keys[pygame.K_RIGHT]:
             self.direction.x = 1
-            self.status = Strings.right
+            self.status = Status.right
         elif keys[pygame.K_LEFT]:
             self.direction.x = -1
-            self.status = Strings.left
+            self.status = Status.left
         else:
             self.direction.x = 0
         pygame.event.pump()
+
+    def get_status(self):
+        if self.direction.magnitude() == 0:
+            self.statusToIdle()
+
+    def statusToIdle(self):
+        self.status = self.status.split('_')[0] +  Status.idle
 
     def move(self, dt):
         if self.direction.magnitude() > 0:
@@ -67,5 +74,6 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, dt):
         self.input()
+        self.get_status()
         self.move(dt)
         self.animate(dt)
