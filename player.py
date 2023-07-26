@@ -9,10 +9,10 @@ class Player(pygame.sprite.Sprite):
         super().__init__(group)
 
         self.import_assets()
-        self.status = 'down_axe'
+        self.status = 'down'
+        self.frame_index = 0
 
-        self.image = pygame.Surface((64, 32))
-        self.image.fill('green')
+        self.image = self.animations[self.status]
         self.rect = self.image.get_rect(center=pos)
 
         self.direction = pygame.math.Vector2()
