@@ -1,5 +1,6 @@
-import random
 import pygame
+
+from playStatusConfig import Strings
 from settings import *
 from support import *
 
@@ -20,32 +21,38 @@ class Player(pygame.sprite.Sprite):
         self.speed = 200
 
     def import_assets(self):
-        self.animations = {'up': [], 'down': [], 'left': [], 'right': []}
+        self.animations = {'up': [], 'down': [], 'left': [], 'right': [],
+                           'right_idle': [], 'left_idle': [], 'up_idle': [], 'down_idle': [],
+                           'right_hoe': [], 'left_hoe': [], 'up_hoe': [], 'down_hoe': [],
+                           'right_axe': [], 'left_axe': [], 'up_axe': [], 'down_axe': [],
+                           'right_water': [], 'left_water': [], 'up_water': [], 'down_water': []}
 
         for animation in self.animations.keys():
             full_path = images_path + animation
             self.animations[animation] = import_folder(full_path)
+
+    def animate(self,dt):
+        self.frame_index += 4 * dt
+        if self.frame_index >= len(self.animations[self.status]):
+            self.frame_index = 0
+        self.image = self.animations[self.status][int(self.frame_index)]
     def input(self):
         keys = pygame.key.get_pressed()
-        red = random.randint(0, 255)
-        green = random.randint(0, 255)
-        blue = random.randint(0, 255)
-        self.image.fill((red, green, blue))
         if keys[pygame.K_UP]:
             self.direction.y = -1
-            print('up')
+            self.status = Strings.up
         elif keys[pygame.K_DOWN]:
             self.direction.y = 1
-            print('down')
+            self.status = Strings.down
         else:
             self.direction.y = 0
 
         if keys[pygame.K_RIGHT]:
             self.direction.x = 1
-            print('right')
+            self.status = Strings.right
         elif keys[pygame.K_LEFT]:
             self.direction.x = -1
-            print('left')
+            self.status = Strings.left
         else:
             self.direction.x = 0
         pygame.event.pump()
@@ -57,6 +64,8 @@ class Player(pygame.sprite.Sprite):
         self.pos += self.direction * self.speed * dt
         self.rect.center = self.pos
         print(self.direction)
+
     def update(self, dt):
         self.input()
         self.move(dt)
+        self.animate(dt)
