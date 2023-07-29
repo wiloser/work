@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
             'seed use': Timer(350, self.use_seed),
             'seed switch': Timer(200),
         }
-        self.tools = ['hoe', 'awe', 'water']
+        self.tools = ['hoe', 'axe', 'water']
         self.tool_index = 0
         self.selected_tool = self.tools[self.tool_index]
 

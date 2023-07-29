@@ -16,8 +16,8 @@ BLUE = (0, 0, 255)
 
 # 定义植物类
 class Plant(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        super().__init__()
+    def __init__(self, x, y, group):
+        super().__init__(group)
         self.image = pygame.Surface((20, 20))
         self.image.fill(BLUE1)
         self.rect = self.image.get_rect(topleft=(x, y))
@@ -28,8 +28,11 @@ class Plant(pygame.sprite.Sprite):
             self.rect.center = pygame.mouse.get_pos()
 
 
+# 创建Sprite组
+all_sprites = pygame.sprite.Group()
 # 创建植物图标
-plant_icon = Plant(50, 50)
+plant_icon = Plant(50, 50, all_sprites)
+
 
 # 创建植物种植区域的槽位
 slot_width, slot_height = 50, 50
@@ -43,10 +46,6 @@ for i in range(num_slots):
     slot_y = screen_height - 100
     slot_rect = pygame.Rect(slot_x, slot_y, slot_width, slot_height)
     slots.append(slot_rect)
-
-# 创建Sprite组
-all_sprites = pygame.sprite.Group()
-all_sprites.add(plant_icon)
 
 running = True
 while running:
