@@ -13,6 +13,7 @@ WHITE = (255, 255, 255)
 BLUE1 = (0, 255, 0)
 BLUE = (0, 0, 255)
 
+
 # 定义植物类
 class Plant(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -25,6 +26,7 @@ class Plant(pygame.sprite.Sprite):
     def update(self):
         if self.dragging:
             self.rect.center = pygame.mouse.get_pos()
+
 
 # 创建植物图标
 plant_icon = Plant(50, 50)
