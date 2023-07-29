@@ -1,5 +1,3 @@
-import pygame
-
 from playStatusConfig import *
 from settings import *
 from support import *
@@ -90,7 +88,7 @@ class Player(pygame.sprite.Sprite):
 
             if keys[pygame.K_q] and not self.timers['tool switch'].active:
                 self.timers['tool switch'].activate()
-                self.tool_index = (self.tool_index % len(self.tools)) + 1
+                self.tool_index = (self.tool_index + 1) % len(self.tools)
                 self.selected_tool = self.tools[self.tool_index]
                 print('拿到的工具为', self.selected_tool)
 
@@ -102,9 +100,10 @@ class Player(pygame.sprite.Sprite):
 
             if keys[pygame.K_e] and not self.timers['seed switch'].active:
                 self.timers['seed switch'].activate()
-                self.seed_index = (self.seed_index % len(self.seeds)) + 1
+                self.seed_index = (self.seed_index + 1) % len(self.seeds)
                 self.selected_seed = self.seeds[self.seed_index]
                 print('拿到的种子为', self.selected_seed)
+
     def get_status(self):
         if self.direction.magnitude() == 0:
             # self.statusToIdle()
