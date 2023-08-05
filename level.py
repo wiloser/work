@@ -43,4 +43,4 @@ class GameraGroup(pygame.sprite.Group):
                 if sprite.z == layer:
                     offset_rect = sprite.rect.copy()
                     offset_rect.center -= self.offset
-                    self.display_surface.blit(sprite.image, sprite.rect)
+                    self.display_surface.blit(sprite.image, offset_rect)
