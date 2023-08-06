@@ -22,3 +22,6 @@ LAYERS = {
     'fruit': 9,
     'rain drops': 10
 }
+
+TILE_SIZE = 64
+
